@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from modulo_utils.config_helper import carregar_config
 from modulo_dados.banco import criar_tabela, salvar_livro, buscar_livros
+from datetime import datetime
 
 class AppBiblioteca(ctk.CTk):
     def __init__(self):
@@ -28,9 +29,6 @@ class AppBiblioteca(ctk.CTk):
         self.cb_nome = ctk.CTkEntry(self.frame_cad, placeholder_text="Nome")
         self.cb_nome.pack(pady=5, padx=10, fill="x")
         
-        self.end_data = ctk.CTkEntry(self.frame_cad, placeholder_text="Data (ex: 27/04/2026")
-        self.end_data.pack(pady=5, padx=10, fill="x")
-        
         self.cb_genero = ctk.CTkComboBox(self.frame_cad, values=["Tecnologia", "Programação", "I.A", "Ficção Científica", "Fantasia", "Suspense", "Romance", "História", "Biografia", "Gastronomia", "Auto-Ajuda", "Outros"])
         self.cb_genero.pack(pady=5, padx=10, fill="x")
 
@@ -47,13 +45,14 @@ class AppBiblioteca(ctk.CTk):
         a = self.ent_autor.get()
         g = self.cb_genero.get()
         n = self.cb_nome.get()
-        d = self.end_data.get()
+        
+        data_automatica = datetime.now().strftime("%d/%m/%Y")
+        
         if t and a:
-            salvar_livro(t, a, g, n, d)
+            salvar_livro(t, a, g, n, data_automatica)
             self.atualizar_view()
             self.ent_titulo.delete(0, 'end')
             self.ent_autor.delete(0, 'end')
-            self.end_data.delete(0, 'end')
 
     def atualizar_view(self):
         self.txt_lista.delete("0.0", "end")
