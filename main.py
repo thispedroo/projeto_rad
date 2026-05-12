@@ -41,15 +41,15 @@ class AppBiblioteca(ctk.CTk):
         self.atualizar_view()
 
     def registrar(self):
-        t = self.ent_titulo.get()
-        a = self.ent_autor.get()
-        g = self.cb_genero.get()
-        n = self.cb_nome.get()
-        
+        titulo = self.ent_titulo.get()
+        autor = self.ent_autor.get()
+        genero = self.cb_genero.get()
+        nome = self.cb_nome.get()
+
         data_automatica = datetime.now().strftime("%d/%m/%Y")
         
-        if t and a:
-            salvar_livro(t, a, g, n, data_automatica)
+        if titulo and autor:
+            salvar_livro(titulo, autor, genero, nome, data_automatica)
             self.atualizar_view()
             self.ent_titulo.delete(0, 'end')
             self.ent_autor.delete(0, 'end')
